@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    const STORE_RULES = [
+        'name' => 'required',
+        'email' => 'required | email',
+        'password' => 'required | min:8',
+        'password_confirmation' => 'required_with:password | same:password | min:8'
+    ];
 }
