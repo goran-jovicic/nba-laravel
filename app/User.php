@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PhpParser\Comment;
 
 class User extends Authenticatable
 {
@@ -43,4 +44,9 @@ class User extends Authenticatable
         'password' => 'required | min:8',
         'password_confirmation' => 'required_with:password | same:password | min:8'
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
