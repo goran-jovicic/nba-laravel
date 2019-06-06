@@ -15,13 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teams', ['as' => 'team-list', 'uses' => 'TeamsController@index']);
+Auth::routes(['verify' => true]);
+
+Route::get('/teams', ['as' => 'team-list', 'uses' => 'TeamsController@index'])->name('teams');
 
 Route::get('/teams/{id}', ['as' => 'team-details', 'uses' => 'TeamsController@show']);
 
 Route::post('/teams/{teamId}/comments', ['as' => 'comments-post', 'uses' => 'CommentsController@store']);
 
-Route::get('/players/{id}', ['as' => 'player-details', 'uses' => 'PlayersController@show']);
+Route::get('/players/{id}', ['as' => 'player-details', 'uses' => 'PlayersController@show'])->name('players');
 
 Route::get('/register', ['as' => 'register-user', 'uses' => 'RegisterController@create']);
 
@@ -33,3 +35,11 @@ Route::post('/login', ['as' => 'post-user', 'uses' => 'LoginController@store']);
 
 Route::get('/logout', ['as' => 'logout-user', 'uses' => 'LoginController@destroy']);
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

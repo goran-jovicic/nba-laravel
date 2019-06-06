@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use PhpParser\Comment;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -41,12 +41,16 @@ class User extends Authenticatable
     const STORE_RULES = [
         'name' => 'required',
         'email' => 'required | email',
-        'password' => 'required | min:8',
-        'password_confirmation' => 'required_with:password | same:password | min:8'
+        'password' => 'required | min:8 | confirmed',
     ];
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public static function verified()
+    {
+        return self::where('is_verified', true);
     }
 }

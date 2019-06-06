@@ -9,7 +9,7 @@ class RegisterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'destroy']);
+        $this->middleware(['auth','verified']);
     }
 
     public function create()
@@ -31,9 +31,8 @@ class RegisterController extends Controller
         $user->password = bcrypt(request('password'));
 
         $user->save();
-
         session()->flash('message', 'Hvala vam sto ste registrovali');
         
-        return redirect()->route('team-list');
+        return redirect()->route('login-user');
     }   
 }

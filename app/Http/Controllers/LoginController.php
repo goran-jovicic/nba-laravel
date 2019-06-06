@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'destroy']);
+        $this->middleware(['auth','verified']);
     }
-
     public function create()
     {
         return view('auth.login');

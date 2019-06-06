@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class Commentscontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('forbidden-words')->only('store');
+    }
+
     public function store($teamId)
     {
 
