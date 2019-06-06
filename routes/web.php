@@ -35,6 +35,10 @@ Route::post('/login', ['as' => 'post-user', 'uses' => 'LoginController@store']);
 
 Route::get('/logout', ['as' => 'logout-user', 'uses' => 'LoginController@destroy']);
 
+Route::get('/news', 'NewsController@index');
+
+Route::get('/news/{id}', 'NewsController@show');
+
 
 Auth::routes();
 
